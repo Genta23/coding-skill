@@ -13,20 +13,26 @@ using namespace std;
 
 int main(){
     int n; cin >> n;
-    vector<int> data(8);
+    vector<int> data;
     vector<int> result(200);
     int size = min(n, 8);
-    rep(i, size){
-        //int temp; cin >> temp;
-        //data.push_back(temp);
-        cin >> data[i]; //この2種類は異なるのと
+
+    rep(i, size){ // n -> size にした もはや8個までしか格納する必要がないため
+        int temp; cin >> temp;
+        data.push_back(temp);
+        //cin >> data[i]; //この2種類は異なるのと おそらくこれでエラーが出ているのは初期化を行なっていないからかな -> 否
+        //あまり0のものが含まれている 0が挿入されているため気をつける必要がある
     }
 
     for (int tmp = 0; tmp < (1 << size); tmp++) {
         bitset<8> s(tmp);
-        int r = 0;
+        //long long r = 0;// ここがREの原因 intの最大値は2*1e9程度 しかし、複数足される場合があった そこでオーバーフローして配列外参照になった可能性がある...
+        //CやC++では負の数のあまりは負の数で出力されるらしい...??
+        int r = 0; //どうしてもintを使用したい場合余剰和に持ち込む方法もある 初期化忘れてたので実行のたびに解が変わった笑
+        //今回みたいにWAではなくREになるの嫌やな
         rep(j, size){
             r += data[j]*s[j];
+            r = r%200;//ここに1行追加してみる このように余剰によっての計算なら何とかなる
         }
         if(result[r%200] == 0){
             result[r%200] += tmp;
