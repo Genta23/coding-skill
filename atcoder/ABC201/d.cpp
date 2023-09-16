@@ -14,7 +14,7 @@ typedef long long ll;
 
 string A[2023];
 int memo[2023][2023];
-bool seen[2023][2023] = {false};
+bool seen[2023][2023] = {};
 int h, w;
 
 int dp(int i, int j){

@@ -46,8 +46,15 @@ typedef long long ll;
 
     return 0;
 }*/
+struct Data
+{
+    int y, x;
+};
+
 
 int main(){
+    int seen[50][50];
+    rep(i, 50) rep(j, 50) seen[i][j] = -1;
     int r, c; cin >> r >> c;
     int sy, sx, gy, gx; cin >> sy >> sx >> gy >> gx;
 
@@ -56,4 +63,31 @@ int main(){
         string temp; cin >> temp;
         data.push_back(temp);
     }
+
+    queue<Data> que;
+    que.push({sy-1, sx-1});
+    seen[sy-1][sx-1] = 0;
+    while(!que.empty()){
+        Data v = que.front();
+        que.pop();
+
+        if(data[v.y+1][v.x] == '.' && seen[v.y+1][v.x] == -1) {
+            que.push({v.y+1, v.x});
+            seen[v.y+1][v.x] = seen[v.y][v.x] + 1;
+        }
+        if(data[v.y][v.x+1] == '.' && seen[v.y][v.x+1] == -1) {
+            que.push({v.y, v.x+1});
+            seen[v.y][v.x+1] = seen[v.y][v.x] + 1;
+        }
+        if(data[v.y-1][v.x] == '.' && seen[v.y-1][v.x] == -1) {
+            que.push({v.y-1, v.x});
+            seen[v.y-1][v.x] = seen[v.y][v.x] + 1;
+        }
+        if(data[v.y][v.x-1] == '.' && seen[v.y][v.x-1] == -1) {
+            que.push({v.y, v.x-1});
+            seen[v.y][v.x-1] = seen[v.y][v.x] + 1;
+        }
+    }
+    cout << seen[gy-1][gx-1] << endl;
+    return 0;
 }
