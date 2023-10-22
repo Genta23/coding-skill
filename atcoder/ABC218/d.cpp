@@ -22,16 +22,19 @@ template<typename T> using min_priority_queue = priority_queue<T, vector<T>, gre
 
 int main(){
     int n; cin >> n;
-    string s; cin >> s;
-    sort(s.begin(), s.end());
-    ll max_value = pow(10, n);
-    int ans = 0;
-    for(ll i=0; i*i<max_value; i++){
-        string t = to_string(i*i);
-        t.resize(n, '0');
-        sort(t.begin(), t.end());
-        if(s == t) ans++;
+    vector<pair<int, int>> data(n);
+    rep(i, n) cin >> data[i].first >> data[i].second;
+
+    //multisetを使用する 整理したらすぐに解けそう
+    
+
+    map<int, int> mpx, mpy;
+    rep(i, n) mpx[data[i].first]++;
+    rep(i, n) mpy[data[i].second]++;
+
+    rep(i, n){
+        int x = data[i].first, y = data[i].second;
+
     }
-    cout << ans << endl;
     return 0;
 }

@@ -36,10 +36,27 @@ typedef long long ll;
         que.pop();
 
         for(int i=0; i<graph[v].size(); i++){
+        // for(int x: G[t]) を使用した方が可読性が良いと思う
             if(seen[graph[v][i]]) continue;
 
             seen[graph[v][i]] = true;
             que.push(graph[v][i]);
+        }
+    }
+
+    // 始点を挿入する 始点を探索済にする
+    //こっちの方が可読性が高い
+    que.push(0);
+    seen[0] = true;
+    while(!que.empty()){
+        int v = que.front();
+        que.pop();
+
+        for(int x: graph[v]){
+            if(seen[x]) continue;
+
+            seen[x] = true;
+            que.push(x);
         }
     }
 

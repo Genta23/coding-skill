@@ -21,17 +21,33 @@ template<typename T> inline bool chmin(T &a, T b) { return ((a > b) ? (a = b, tr
 template<typename T> using min_priority_queue = priority_queue<T, vector<T>, greater<T>>;
 
 int main(){
-    int n; cin >> n;
-    string s; cin >> s;
-    sort(s.begin(), s.end());
-    ll max_value = pow(10, n);
-    int ans = 0;
-    for(ll i=0; i*i<max_value; i++){
-        string t = to_string(i*i);
-        t.resize(n, '0');
-        sort(t.begin(), t.end());
-        if(s == t) ans++;
+    int n, m; cin >> n >> m;
+    string s, t; cin >> s >> t;
+
+    bool flag_front = true;
+    rep(i, n){
+        if(s[i] == t[i]){
+            ;
+        }
+        else{
+            flag_front = false;
+        }
     }
-    cout << ans << endl;
+
+    bool flag_back = true;
+    rep(i, n){
+        if(s[i] == t[m-n+i]){
+            ;
+        }
+        else{
+            flag_back = false;
+        }
+    }
+
+    if(flag_front && flag_back) cout << 0 << endl;
+    else if(flag_front) cout << 1 << endl;
+    else if(flag_back) cout << 2 << endl;
+    else cout << 3 << endl;
+
     return 0;
 }

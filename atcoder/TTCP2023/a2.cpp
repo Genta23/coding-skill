@@ -19,19 +19,16 @@ const ll infl = 1e18;
 template<typename T> inline bool chmax(T &a, T b) { return ((a < b) ? (a = b, true) : (false)); }
 template<typename T> inline bool chmin(T &a, T b) { return ((a > b) ? (a = b, true) : (false)); }
 template<typename T> using min_priority_queue = priority_queue<T, vector<T>, greater<T>>;
+const int MOD = 998244353;
 
 int main(){
     int n; cin >> n;
-    string s; cin >> s;
-    sort(s.begin(), s.end());
-    ll max_value = pow(10, n);
-    int ans = 0;
-    for(ll i=0; i*i<max_value; i++){
-        string t = to_string(i*i);
-        t.resize(n, '0');
-        sort(t.begin(), t.end());
-        if(s == t) ans++;
+    vector<ll> data(100000);
+    data[0] = 0;
+    for(int i=1; i<100000; i++){
+        data[i] = data[i-1]*2 + i;
+        data[i] %= MOD;
     }
-    cout << ans << endl;
+    cout << data[n-1] << endl;
     return 0;
 }

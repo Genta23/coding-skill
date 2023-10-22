@@ -22,16 +22,18 @@ template<typename T> using min_priority_queue = priority_queue<T, vector<T>, gre
 
 int main(){
     int n; cin >> n;
-    string s; cin >> s;
-    sort(s.begin(), s.end());
-    ll max_value = pow(10, n);
-    int ans = 0;
-    for(ll i=0; i*i<max_value; i++){
-        string t = to_string(i*i);
-        t.resize(n, '0');
-        sort(t.begin(), t.end());
-        if(s == t) ans++;
+    vector<pair<ll, ll>> data(n); rep(i, n) cin >> data[i].first >> data[i].second;
+    vector<ll> ans(48);
+    rep(i, n){
+        for(int j=9; j<18; j++){
+            ans[j+data[i].second] += data[i].first;
+        }
     }
-    cout << ans << endl;
+
+    ll f_ans = 0;
+    rep(i, 24){
+        if(f_ans < ans[i] + ans[i+24]) f_ans = ans[i] + ans[i+24];
+    }
+    cout << f_ans << endl;
     return 0;
 }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <iostream>
 #include <algorithm>
 #include <vector>
 #include <queue>
@@ -11,7 +12,7 @@
 #include <tuple>
 #include <cassert>
 #include <numeric>
-#include <atcoder/modint>
+//#include <atcoder/modint>
 using namespace std;
 typedef long long ll;
 const int inf = 1e9;
@@ -21,9 +22,23 @@ template<typename T> inline bool chmax(T &a, T b) { return ((a < b) ? (a = b, tr
 template<typename T> inline bool chmin(T &a, T b) { return ((a > b) ? (a = b, true) : (false)); }
 template<typename T> using min_priority_queue = priority_queue<T, vector<T>, greater<T>>;
 const int MOD = 998244353;
-using mint=atcoder::modint998244353;
+using namespace std;
 
-int main(){
+// mod. m での a の逆元 a^{-1} を計算する
+long long modinv(long long a, long long m) {
+    long long b = m, u = 1, v = 0;
+    while (b) {
+        long long t = a / b;
+        a -= t * b; swap(a, b);
+        u -= t * v; swap(u, v);
+    }
+    u %= m;
+    if (u < 0) u += m;
+    return u;
+}
+
+// a ÷ b mod. MOD を計算してみる
+int main() {
     ll a, b, p = 2; cin >> a >> b;
     map<int, int> data;
     /* これAが大きい素数だと計算量バグる */
@@ -40,15 +55,17 @@ int main(){
     }
     if(b%2 == 0) flag = true;
     b %= MOD;
-    mint ans = b;
+    ll ans = b;
     for (const auto& [k, v] : data) {
+        cout << k << " " << v << endl;
         ans *= b*v + 1;
-        if(v%2 == 1) flag = true;
+        ans %= MOD;
+        if((b%MOD)*(v%MOD)%MOD + 1 == 0 ) flag = true;
     }
-    if(!flag) ans--;
-    ans = ans/2;
-    cout << ans.val() << endl;
+    if(!flag) { ans--; ans = (ans + MOD) % MOD; }
+    ans = ans * modinv(2, MOD) % MOD;
+    cout << ans << endl;
     return 0;
 }
 
-//modで割られるタイミングが色々あるから12もmod7で5つまり偶奇はそこのみでは判別できない
+//後日詳しくやる

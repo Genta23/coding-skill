@@ -23,15 +23,16 @@ template<typename T> using min_priority_queue = priority_queue<T, vector<T>, gre
 int main(){
     int n; cin >> n;
     string s; cin >> s;
-    sort(s.begin(), s.end());
-    ll max_value = pow(10, n);
-    int ans = 0;
-    for(ll i=0; i*i<max_value; i++){
-        string t = to_string(i*i);
-        t.resize(n, '0');
-        sort(t.begin(), t.end());
-        if(s == t) ans++;
+    rep(i, n-2){
+        if(s[i] == 'A'){
+            if(s[i+1] == 'B'){
+                if(s[i+2] == 'C'){
+                    cout << i+1 << endl;
+                    return 0;
+                }
+            }
+        }
     }
-    cout << ans << endl;
+    cout << -1 << endl;
     return 0;
 }
