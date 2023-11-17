@@ -24,6 +24,12 @@ template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t 
 using Graph = vector<vector<int>>;
 
 int main(){
-    
+    string s = "3.1415926535897932384626433832795028841971693993751058209749445923078164062862089986280348253421170679";
+    string ans = "";
+    int n; cin >> n;
+    rep(i, n+2){
+        ans += s[i];
+    }
+    cout << ans << endl;
     return 0;
 }

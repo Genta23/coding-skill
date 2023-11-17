@@ -24,6 +24,18 @@ template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t 
 using Graph = vector<vector<int>>;
 
 int main(){
-    
+    int n, k; cin >> n >> k;
+    vector<int> a(n);
+    rep(i, n) cin >> a[i];
+
+    if(n < k){
+        rep(i, n) cout << 0 << " ";
+        cout << endl;
+        return 0;
+    }
+
+    rep(i, n-k) cout << a[i+k] << " ";
+    rep(i, k) cout << 0 << " ";
+    cout << endl;
     return 0;
 }

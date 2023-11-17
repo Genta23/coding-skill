@@ -24,6 +24,20 @@ template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t 
 using Graph = vector<vector<int>>;
 
 int main(){
+    string s; cin >> s;
+    int n = s.size();
     
+    string ans;
+    rep(i, n){
+        ans += s[i];
+        if(ans.size() >= 3){
+            if(ans[ans.size()-3] == 'A' && ans[ans.size()-2] == 'B' && ans[ans.size()-1] == 'C'){
+                ans.pop_back();
+                ans.pop_back();
+                ans.pop_back();
+            }
+        }
+    }
+    cout << ans << endl;
     return 0;
 }

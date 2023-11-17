@@ -24,6 +24,18 @@ template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t 
 using Graph = vector<vector<int>>;
 
 int main(){
-    
+    int n; cin >> n;
+    string s; cin >> s;
+    rep(i, n-1){
+        if(s[i] == 'a' && s[i+1] == 'b'){
+            cout << "Yes" << endl;
+            return 0;
+        }
+        if(s[i] == 'b' && s[i+1] == 'a'){
+            cout << "Yes" << endl;
+            return 0;
+        }
+    }
+    cout << "No" << endl;
     return 0;
 }

@@ -1,0 +1,1 @@
+ rep(j, n) cin >> data[i][j];

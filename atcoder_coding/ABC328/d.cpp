@@ -24,6 +24,20 @@ template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t 
 using Graph = vector<vector<int>>;
 
 int main(){
+    string s; cin >> s;
+    int n = s.size();
     
+    stack<int> st;
+    string ans;
+
+    vector<int> flag(3);
+    rep(i, n){
+        if(s[i] = 'A'){
+            flag[s[i] - 'A']++;
+        }
+        else if(s[i] = 'B'){
+            if(flag[s[i] - 'B'] > 0);
+        }
+    }
     return 0;
 }

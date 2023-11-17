@@ -12,6 +12,7 @@
 #include <tuple>
 #include <cassert>
 #include <numeric>
+#include "atcoder/modint.hpp" // #include "atcoder/modint.hpp" でも通る 理想は<atcoder/modint.hpp>だが
 using namespace std;
 typedef long long ll;
 const int inf = 1e9;
@@ -24,6 +25,6 @@ template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t 
 using Graph = vector<vector<int>>;
 
 int main(){
-    
+
     return 0;
 }
