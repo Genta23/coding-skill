@@ -22,18 +22,19 @@ template<typename T> inline bool chmin(T &a, T b) { return ((a > b) ? (a = b, tr
 template<typename T> using min_priority_queue = priority_queue<T, vector<T>, greater<T>>;
 template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t >= 0 && s < s__ && t < t__) ? true : false); }
 using Graph = vector<vector<int>>;
-ll dp[107][100007];
+bool flag[103][10003];
 int main(){
-    int n, w; cin >> n >> w;
-    vector<pair<ll, ll>> data(n); rep(i, n) cin >> data[i].first >> data[i].second;
+    int n, m; cin >> n >> m;
+    vector<int> w(n); rep(i, n) cin >> w[i];
 
+    flag[0][0] = true;
     rep(i, n){
-        rep(j, 100007){
-            if(j - data[i].first >= 0) dp[i+1][j] = max(dp[i][j - data[i].first] + data[i].second, dp[i][j]);
-            else dp[i+1][j] = dp[i][j];
+        rep(j, m+1){
+            flag[i+1][j] = flag[i][j];
+            if(j - w[i] >= 0 && flag[i][j - w[i]]) flag[i+1][j] = true;
         }
     }
 
-    cout << dp[n][w] << endl;
+    cout << (flag[n][m] ? "Yes" : "No") << endl;
     return 0;
 }
