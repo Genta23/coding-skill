@@ -23,7 +23,7 @@ template<typename T> using min_priority_queue = priority_queue<T, vector<T>, gre
 template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t >= 0 && s < s__ && t < t__) ? true : false); }
 using Graph = vector<vector<int>>;
 int cnt[503][10003];
-
+// これはなんのコードか不明 おそらくdp6の失敗作かな??
 int main(){
     int n, m, k; cin >> n >> m >> k;
     vector<int> a(n), b(n); rep(i, n) cin >> a[i] >> b[i];
