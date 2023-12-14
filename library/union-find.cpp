@@ -17,48 +17,36 @@ typedef long long ll;
 class UnionFind{
 public:
     UnionFind() = default;
-    
+
     explicit UnionFind(size_t n) : m_parents(n), m_sizes(n, 1){
-		std::iota(m_parents.begin(), m_parents.end(), 0);
-	}
-
-	int find(int i){
-		if (m_parents[i] == i) return i;
-
-		// 経路圧縮
-		return (m_parents[i] = find(m_parents[i]));
-	}
-
-	void merge(int a, int b){
-		a = find(a);
-		b = find(b);
-
-		if (a != b){
-			// union by size (小さいほうが子になる）
-			if (m_sizes[a] < m_sizes[b]) swap(a, b);
-
-			m_sizes[a] += m_sizes[b];
-			m_parents[b] = a;
-		}
-	}
-
-	bool connected(int a, int b) { // これ条件分岐ではなく、関数だから{ }省略できない
-        return (find(a) == find(b));
+        iota(m_parents.begin(), m_parents.end(), 0);
     }
 
-	int size(int i){
-        return m_sizes[find(i)]; 
+    int find(int i){ // 再帰関数でルートを特定
+        if(m_parents[i] == i) return i;
+        return (m_parents[i] = find(m_parents[i])); // 経路圧縮
     }
+
+    void merge(int a, int b){
+        a = find(a); b = find(b); // ルートを取得
+        if(a != b){
+            if(m_sizes[a] < m_sizes[b]) swap(a, b); // swap(a, b)ではポインタの交換が行われている
+            m_sizes[a] += m_sizes[b]; // 全てのサイズを変更していると計算時間が増大するので、ルートの情報のみを書き換える
+            m_parents[b] = a; // ルートの情報を書き換える
+        }
+    }
+
+    bool connected(int a, int b) { return (find(a) == find(b)); }
+
+    int size(int i) { return m_sizes[find(i)]; }
 
 private:
-    vector<int> m_parents;
-    vector<int> m_sizes;
+    vector<int> m_parents, m_sizes;
 };
 //find(i) iのrootを見つける
 //merge(i, j) iのグループとjのグループを統合する
 //connected(i, j) 同じグループか判定する
 //size(i) 同じグループに属する要素数を返す
-
 int main(){
     int N; cin >> N;
     UnionFind uf(N); //ufのインスタンスを生成

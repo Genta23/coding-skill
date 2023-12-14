@@ -23,56 +23,45 @@ template<typename T> using min_priority_queue = priority_queue<T, vector<T>, gre
 template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t >= 0 && s < s__ && t < t__) ? true : false); }
 using Graph = vector<vector<int>>;
 
+
 int main(){
+    // キューを使用するもの
     int n, m; cin >> n >> m;
     string s, t; cin >> s >> t;
 
+    queue<int> que;
     rep(i, n-m+1){
         bool flag = true;
         rep(j, m) if(s[i+j] != t[j]) flag = false;
-        if(flag) rep(j, m) s[i+j] = '#';
+        if(flag) que.push(i);
     }
 
-    rep(i, n-m+1){
-        bool flag = false, on = true;
-        if(s[i] == '#'){
-            rep(j, m){
-                if(!flag && s[i+j] == '#') continue;
-                else if(s[i+j] == t[j]) flag = true;
-                else if(s[i+j] != '#' && s[i+j] != t[j]){ // ##A##分岐してくる
-                    on = false;
-                    break;
-                }
+    while(!que.empty()){
+        int v = que.front(); que.pop();
+        //cout << v << endl;
+        rep(i, m){
+            s[v+i] = '#';
+        }
+        for(int i=1; i<m; i++){
+            if(v+i < n-m+1){
+                bool flag = false;
+                rep(j, m) if(s[v+i+j] != '#') flag = true;
+                rep(j, m) if(s[v+i+j] != '#' && s[v+i+j] != t[j]) flag = false;
+                if(flag) que.push(v+i);
             }
-            if(flag && on){
-                rep(j, m){
-                    s[i+j] = '#';
-                }
+        }
+        for(int i=1; i<m; i++){
+            if(v-i >= 0){
+                bool flag = false;
+                rep(j, m) if(s[v-i+j] != '#') flag = true;
+                rep(j, m) if(s[v-i+j] != '#' && s[v-i+j] != t[j]) flag = false;
+                if(flag) que.push(v-i);
             }
         }
     }
 
-    reverse(s.begin(), s.end());
-    reverse(t.begin(), t.end());
-
-    rep(i, n-m+1){
-        bool flag = false, on = true;
-        if(s[i] == '#'){
-            rep(j, m){
-                if(!flag && s[i+j] == '#') continue;
-                else if(s[i+j] == t[j]) flag = true;
-                else if(s[i+j] != '#' && s[i+j] != t[j]){ // ##A##分岐してくる
-                    on = false;
-                    break;
-                }
-            }
-            if(flag && on){
-                rep(j, m){
-                    s[i+j] = '#';
-                }
-            }
-        }
-    }
+    /*rep(i, n) cout << s[i];
+    cout << endl;*/
 
     rep(i, n){
         if(s[i] != '#'){
