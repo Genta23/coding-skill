@@ -53,26 +53,21 @@ int main(){
 
     int size = 1;
     rep(i, k) size *= (p+1);
-    vector<ll> ans(size, infl);
-    ans[0] = 0;
+    vector<vector<ll>> ans(n+1, vector<ll>(size, infl));
+    ans[0][0] = 0;
     rep(i, n){
-        vector<ll> tmp(size, infl);
+        rep(j, size) ans[i+1] = ans[i];
         rep(j, size){
-            if(ans[j] == infl) continue;
+            if(ans[i][j] == infl) continue;
             vector<int> dig = convertFrom10(j, p, k);
             rep(l, k){
                 dig[l] += a[i][l];
                 if(dig[l] > p) dig[l] = p;
             }
-            //chmin(ans[convertTo10(dig, p)], ans[j] + c[i]);
-            chmin(tmp[convertTo10(dig, p)], ans[j] + c[i]);
+            chmin(ans[i+1][convertTo10(dig, p)], ans[i][j] + c[i]);
         }
-        rep(j, size) chmin(ans[j], tmp[j]);
     }
 
-    cout << ((ans.back() != infl) ? ans.back() : -1) << endl;
+    cout << ((ans[n].back() != infl) ? ans[n].back() : -1) << endl;
     return 0;
 }
-
-// 制約に着目すると、全ての状態数を管理できることに気づけそう
-// p以上は全てpになるように設定することがポイント
