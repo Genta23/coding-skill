@@ -12,6 +12,8 @@
 #include <tuple>
 #include <cassert>
 #include <numeric>
+#include <iomanip>
+#include <functional>
 using namespace std;
 typedef long long ll;
 const int inf = 1e9;
@@ -23,33 +25,39 @@ template<typename T> using min_priority_queue = priority_queue<T, vector<T>, gre
 template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t >= 0 && s < s__ && t < t__) ? true : false); }
 using Graph = vector<vector<int>>;
 
-int main(){
-    int n, m; cin >> n >> m;
-    vector<ll> l(n); rep(i, n) {cin >> l[i]; l[i]++;}
-
-    ll max = 0, sum = 0;
-    rep(i, n){
-        sum += l[i];
-        chmax(max, l[i]); 
+vector<pair<char,ll>> runlength(string s) {
+    int x = s.size();
+    vector<pair<char,ll>> res;
+    char pre = s[0];
+    ll cnt = 1;
+    for(int i=1; i<x; i++) {
+        if(pre !=s [i]) {
+            res.push_back({pre,cnt});
+            pre=s[i]; cnt=1;
+        } else cnt++;
     }
+    res.push_back({pre,cnt});
+    return res;
+}
 
-    ll upper = sum;
-    ll lower = max - 1;
+int main() {
+    string s; cin >> s;
+    auto rl = runlength(s);
 
-    while(lower + 1 < upper){ // 二分探索の終了条件
-        ll mid = (lower + upper) / 2;
-        ll tmp = 0, cnt = 1;
-        rep(i, n){
-            if(tmp + l[i] > mid){
-                cnt++, tmp = l[i];
-            }
-            else{
-                tmp += l[i];
-            }
-        }
-        if(cnt > m) lower = mid;
-        else upper = mid;
-    }
-    cout << upper - 1 << endl;
+    // トリボナッチの計算
+    vector<ll> tri(3,0);
+    tri[2]=1;
+    for(int i=3;i<=60;i++) tri.push_back(tri[i-1]+tri[i-2]+tri[i-3]);
+
+    ll ans=1;
+    for(auto u : rl) if(u.first == 'x') ans *= tri[u.second+3]; //ずれの修正
+
+    cout << ans << endl;
     return 0;
 }
+
+
+
+
+
+
