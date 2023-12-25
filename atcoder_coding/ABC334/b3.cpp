@@ -29,5 +29,13 @@ int main(){
     ll a, m, l, r;
     cin >> a >> m >> l >> r;
     
-    cout << l%m << endl;
+    // mの倍数で考えれるようにする
+    l -= a, r -= a;
+
+    // l未満で最大のmの倍数 -> l-1以下で最大のmの倍数、r以下で最大のmの倍数を考える
+    ll l_m = (l-1) - ((l-1)%m + m) % m;
+    ll r_m = r - (r%m + m) % m;
+
+    cout << r_m/m - l_m/m << endl;
+    return 0;
 }

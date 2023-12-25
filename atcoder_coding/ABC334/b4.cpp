@@ -25,39 +25,18 @@ template<typename T> using min_priority_queue = priority_queue<T, vector<T>, gre
 template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t >= 0 && s < s__ && t < t__) ? true : false); }
 using Graph = vector<vector<int>>;
 
-int main(){
-    int n, k; cin >> n >> k;
-    vector<ll> a(k);
-    rep(i, k) cin >> a[i];
+ll floor(ll k, ll m){
+    ll r = ((k%m)+m)%m;
+    return k - r;
+}
 
-    ll ans = 0;
-    if(k%2 == 0){ // 偶数なら簡単
-        rep(i, k){
-            if(i%2 == 0){
-                ans += (a[i+1]-a[i]);
-            }
-        }
-        cout << ans << endl;
-        return 0;
-    }
-    else{ // 奇数なら難しい
-        ll min = infl;
-        rep(i, k){
-            if(i == 0) continue;
-            if(i%2 == 0){
-                ans += (a[i]-a[i-1]);
-            }
-        }
-        chmin(min, ans);
-        rep(i, k){ // 連鎖的に繋ぎ直す
-            if(i == k-1) continue;
-            if(i%2 == 0){
-                ans += (a[i+1]-a[i]);
-                ans -= (a[i+2]-a[i+1]);
-                chmin(min, ans);
-            }
-        }
-        cout << min << endl;
-    }
+int main(){
+    ll a, m, l, r;
+    cin >> a >> m >> l >> r;
+    
+    // mの倍数で考えれるようにする
+    l -= a, r -= a;
+
+    cout << floor(r, m)/m - floor(l-1, m)/m << endl;
     return 0;
 }

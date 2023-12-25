@@ -1,0 +1,1 @@
+template<typename T> T floor_multiple(T k, T m){ return k - ((k%m+m)%m); }
