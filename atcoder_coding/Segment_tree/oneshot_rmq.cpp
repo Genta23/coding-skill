@@ -47,7 +47,7 @@ public:
         dat[i] = x;
         while (i > 0) {
             i = (i - 1) / 2;  // parent
-            dat[i] = gcd(dat[i * 2 + 1], dat[i * 2 + 2]);
+            dat[i] = min(dat[i * 2 + 1], dat[i * 2 + 2]);
         }
     }
 
@@ -55,31 +55,25 @@ public:
     T query(int a, int b) { return query_sub(a, b, 0, 0, n); }
     T query_sub(int a, int b, int k, int l, int r) {
         if (r <= a || b <= l) {
-            return 0;
+            return INF;
         } else if (a <= l && r <= b) {
             return dat[k];
         } else {
             T vl = query_sub(a, b, k * 2 + 1, l, (l + r) / 2);
             T vr = query_sub(a, b, k * 2 + 2, (l + r) / 2, r);
-            return gcd(vl, vr);
+            return min(vl, vr);
         }
     }
 };
 
 int main(){
-    int n; cin >> n;
-    vector<int> a(n); rep(i, n) cin >> a[i];
-
+    int n, q; cin >> n >> q;
     RMQ<int> rmq(n);
-    rep(i, n) rmq.update(i, a[i]);
 
-    int ans = 0;
-    rep(i, n){
-        int l_gcd = rmq.query(0, i);
-        int r_gcd = rmq.query(i+1, n);
-        chmax(ans, gcd(l_gcd, r_gcd));
+    rep(i, q){
+        int c, x, y; cin >> c >> x >> y;
+        if(c == 0) rmq.update(x, y);
+        else cout << rmq.query(x, y+1) << endl;
     }
-
-    cout << ans << endl;
     return 0;
 }

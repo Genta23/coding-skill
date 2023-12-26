@@ -25,7 +25,7 @@ template<typename T> using min_priority_queue = priority_queue<T, vector<T>, gre
 template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t >= 0 && s < s__ && t < t__) ? true : false); }
 using Graph = vector<vector<int>>;
 /* RMQ：[0,n-1] について、区間ごとの最小値を管理する構造体
-    update(a,b,x): 区間[a,b) の要素を x に更新。O(log(n))
+    update(a,b,x): 区間[a,b) の要素に x を加算。O(log(n))
     query(a,b): [a,b) での最小の要素を取得。O(log(n))
 */
 template <typename T>
