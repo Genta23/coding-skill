@@ -18,7 +18,7 @@ using namespace std;
 typedef long long ll;
 const int inf = 1e9;
 const ll infl = 1e18;
-#define rep(i,n) for (ll i=0; i<n; i++)
+#define rep(i,n) for (int i=0; i<n; i++)
 template<typename T> inline bool chmax(T &a, T b) { return ((a < b) ? (a = b, true) : (false)); }
 template<typename T> inline bool chmin(T &a, T b) { return ((a > b) ? (a = b, true) : (false)); }
 template<typename T> using min_priority_queue = priority_queue<T, vector<T>, greater<T>>;
@@ -26,7 +26,36 @@ template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t 
 template<typename T> T floor_multiple(T k, T m){ return k - ((k%m+m)%m); }
 using Graph = vector<vector<int>>;
 
-int main(){
+bool match_or_not(char a,char b){
+	return a=='?' || b=='?' || a==b;
+}
+
+int main() {
     
-    return 0;
+	string S,T;
+	cin>>S>>T;
+	
+	vector<int> pre(S.size()+1,false),suf(S.size()+1,false);
+	
+	pre[0] = true;
+	for(int i=0;i<T.size();i++){
+		if(!match_or_not(S[i],T[i]))break;
+		pre[i+1] = true;
+	}
+	
+	reverse(S.begin(),S.end());
+	reverse(T.begin(),T.end());
+	
+	suf[0] = true;
+	for(int i=0;i<T.size();i++){
+		if(!match_or_not(S[i],T[i]))break;
+		suf[i+1] = true;
+	}
+	
+	for(int i=0;i<=T.size();i++){
+		if(pre[i] && suf[T.size()-i])printf("Yes\n");
+		else printf("No\n");
+	}
+	
+	return 0;
 }

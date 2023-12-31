@@ -26,7 +26,27 @@ template<typename T> bool checker(T s, T t, T s__, T t__){ return ((s >= 0 && t 
 template<typename T> T floor_multiple(T k, T m){ return k - ((k%m+m)%m); }
 using Graph = vector<vector<int>>;
 
+int Hs(string s){
+    int b = 30, m = 1000003;
+    int val = 0;
+    rep(i, s.size()){
+        val *= b;
+        val += (s[i] - 'a'+1);
+        val %= m;
+    }
+    return val;
+}
+
 int main(){
-    
+    int n; cin >> n;
+    vector<string> s(n); rep(i, n) cin >> s[i];
+
+    map<int, int> mp;
+    rep(i, n) mp[Hs(s[i])]++;
+
+    int ans = 0;
+    for(auto v : mp) chmax(ans, v.second);
+
+    cout << ans << endl;
     return 0;
 }

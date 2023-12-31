@@ -27,6 +27,29 @@ template<typename T> T floor_multiple(T k, T m){ return k - ((k%m+m)%m); }
 using Graph = vector<vector<int>>;
 
 int main(){
-    
+    ll a, x, m; cin >> a >> x >> m;
+    ll t = 1; // 床関数 √x を求める
+    while(t*t <= x){
+        t++;
+    }
+    t--;
+
+    ll b = 0, r = 1; // 分割パートの計算
+    rep(i, t){
+        b += r, b %= m;
+        r *= a, r %= m;
+    }
+
+    ll ans = 0, c = 1; // 分割した計算をさらに繰り返す
+    rep(i, t){
+        ans += b*c, ans %= m;
+        c *= r, c %= m;
+    }
+
+    rep(i, x - t*t){ // 残りを計算する
+        ans *= a, ans %= m;
+        ans++, ans %= m;
+    }
+    cout << ans << endl;
     return 0;
 }

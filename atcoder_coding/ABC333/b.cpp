@@ -18,7 +18,7 @@ using namespace std;
 typedef long long ll;
 const int inf = 1e9;
 const ll infl = 1e18;
-#define rep(i,n) for (ll i=0; i<n; i++)
+#define rep(i,n) for (int i=0; i<n; i++)
 template<typename T> inline bool chmax(T &a, T b) { return ((a < b) ? (a = b, true) : (false)); }
 template<typename T> inline bool chmin(T &a, T b) { return ((a > b) ? (a = b, true) : (false)); }
 template<typename T> using min_priority_queue = priority_queue<T, vector<T>, greater<T>>;
@@ -27,6 +27,13 @@ template<typename T> T floor_multiple(T k, T m){ return k - ((k%m+m)%m); }
 using Graph = vector<vector<int>>;
 
 int main(){
-    
+    string s, t; cin >> s >> t;
+    int a = abs((s[0] - 'A') - (s[1] - 'A'));
+    int b = abs((t[0] - 'A') - (t[1] - 'A'));
+    if(a >= 3) a = 5 - a;
+    if(b >= 3) b = 5 - b;
+
+    if(a == b) cout << "Yes" << endl;
+    else cout << "No" << endl;
     return 0;
 }

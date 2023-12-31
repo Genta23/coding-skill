@@ -30,6 +30,7 @@ int main(){
     vector<ll> r(n);
     rep(i, n) cin >> r[i];
 
+    // ソート 累積和
     sort(r.begin(), r.end());
     vector<ll> s(n);
     s[0] = r[0];
@@ -37,6 +38,7 @@ int main(){
         s[i] = s[i-1] + r[i];
     }
 
+    // クエリ
     rep(i, q){
         ll tmp; cin >> tmp;
         auto it = upper_bound(s.begin(), s.end(), tmp);
