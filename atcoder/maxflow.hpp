@@ -2,7 +2,8 @@
 #define ATCODER_MAXFLOW_HPP 1
 
 #include <algorithm>
-#include <atcoder/internal_queue>
+//#include <atcoder/internal_queue>
+#include "internal_queue.hpp"
 #include <cassert>
 #include <limits>
 #include <queue>

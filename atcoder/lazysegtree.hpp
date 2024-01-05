@@ -2,7 +2,8 @@
 #define ATCODER_LAZYSEGTREE_HPP 1
 
 #include <algorithm>
-#include <atcoder/internal_bit>
+//#include <atcoder/internal_bit>
+#include "internal_bit.hpp"
 #include <cassert>
 #include <iostream>
 #include <vector>

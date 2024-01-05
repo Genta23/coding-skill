@@ -1,7 +1,8 @@
 #ifndef ATCODER_TWOSAT_HPP
 #define ATCODER_TWOSAT_HPP 1
 
-#include <atcoder/internal_scc>
+//#include <atcoder/internal_scc>
+#include "internal_scc.hpp"
 #include <cassert>
 #include <vector>
 
